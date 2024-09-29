@@ -12,7 +12,7 @@ class CameraService extends ICameraService {
   Future<File?> launchCamera() async {
     try {
       final XFile? image =
-          await _picker.pickImage(source: ImageSource.camera, imageQuality: 1);
+          await _picker.pickImage(source: ImageSource.camera, imageQuality: 25);
       if (image != null) {
         return File(image.path);
       }
@@ -27,7 +27,7 @@ class CameraService extends ICameraService {
   Future<File?> launchSingleImagePicker() async {
     try {
       final XFile? image =
-          await _picker.pickImage(source: ImageSource.gallery, imageQuality: 1);
+          await _picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
       if (image != null) {
         return File(image.path);
       }
