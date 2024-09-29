@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sync_tasks/bos/task_bo/task_bo.dart';
@@ -10,12 +12,14 @@ import 'package:sync_tasks/util/images.dart';
 class TaskCard extends StatelessWidget {
   final TaskItem task;
   final Function()? onTap;
+  final Function onTapImage;
   final bool showDivider;
   const TaskCard(
       {super.key,
       required this.task,
       required this.showDivider,
-      required this.onTap});
+      required this.onTap,
+      required this.onTapImage});
 
   @override
   Widget build(BuildContext context) {
@@ -45,38 +49,44 @@ class TaskCard extends StatelessWidget {
                   ),
                 ),
               if (task.image.isNotEmpty)
-                Container(
-                  margin: EdgeInsets.only(left: 45.w, top: 25.h),
-                  height: 65.h,
-                  child: Stack(
-                    children: [
-                      CircleAvatar(
-                        radius: 25.r,
-                        backgroundImage: AssetImage(Images.sampleMeeting),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                          width: 49.w,
-                          height: 26.h,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                              color: ColorUtil.darkGray,
-                              borderRadius: BorderRadius.circular(41.r)),
-                          child: Text(
-                            "${task.fromTime.split(" ")[0]}\n${task.toTime.split(" ")[1]}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: Fonts.neueMontreal,
-                              fontWeight: FontWeight.w500,
-                              color: ColorUtil.white,
-                              fontSize: 10.sp,
-                              height: 1.2.h,
+                GestureDetector(
+                  onTap: () {
+                    onTapImage();
+                  },
+                  child: Container(
+                    margin: EdgeInsets.only(left: 45.w, top: 25.h),
+                    height: 65.h,
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 25.r,
+                          backgroundImage:
+                              MemoryImage(base64Decode(task.image)),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            width: 49.w,
+                            height: 26.h,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: ColorUtil.darkGray,
+                                borderRadius: BorderRadius.circular(41.r)),
+                            child: Text(
+                              "${task.fromTime.split(" ")[0]}\n${task.toTime.split(" ")[1]}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: Fonts.neueMontreal,
+                                fontWeight: FontWeight.w500,
+                                color: ColorUtil.white,
+                                fontSize: 10.sp,
+                                height: 1.2.h,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               GestureDetector(
@@ -107,16 +117,19 @@ class TaskCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              task.title,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontFamily: Fonts.neueMontreal,
-                                fontWeight: FontWeight.w700,
-                                color: ColorUtil.black,
-                                fontSize: 15.sp,
-                                height: 1.2.h,
+                            SizedBox(
+                              width: 200.w,
+                              child: Text(
+                                task.title,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: Fonts.neueMontreal,
+                                  fontWeight: FontWeight.w700,
+                                  color: ColorUtil.black,
+                                  fontSize: 15.sp,
+                                  height: 1.2.h,
+                                ),
                               ),
                             ),
                             Image.asset(
@@ -132,6 +145,7 @@ class TaskCard extends StatelessWidget {
                           padding: EdgeInsets.only(top: 7.h),
                           child: Text(
                             task.description,
+                            textAlign: TextAlign.justify,
                             style: TextStyle(
                               fontFamily: Fonts.neueMontreal,
                               fontWeight: FontWeight.w400,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sync_tasks/screens/add_task/add_task.dart';
 import 'package:sync_tasks/util/color_util.dart';
 import 'package:sync_tasks/util/extensions.dart';
 import 'package:sync_tasks/util/fonts.dart';

@@ -3,4 +3,5 @@ class Pages {
   static String authenticationScreen = "/authenticationScreen";
   static String rootScreen = "/rootScreen";
   static String addTask = "/addTask";
+  static String login = "/login";
 }

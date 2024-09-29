@@ -1,9 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:sync_tasks/screens/authentication/authenticatioin_model.dart';
+import 'package:sync_tasks/services/platform/biometric_service/ibiometric_service.dart';
 import 'package:sync_tasks/util/extensions.dart';
 import 'package:sync_tasks/util/snackbar_helper.dart';
 
-class AuthenticationVM extends AuthenticationModel {
+class AuthenticationNotifier extends ChangeNotifier {
+  IBiometricService biometricService;
+
+  AuthenticationNotifier({required this.biometricService});
+
   Future<bool> authenticate() async {
     try {
       List<BiometricType> availableServices =

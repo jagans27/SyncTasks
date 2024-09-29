@@ -15,10 +15,8 @@ class App extends StatelessWidget {
       minTextAdapt: true,
       child: MaterialApp.router(
         scaffoldMessengerKey: SnackkBarHelper.snackBarKey,
-      // child: MaterialApp(
         title: Strings.appName,
         debugShowCheckedModeBanner: false,
-        // home: const Splash(),
         routerConfig: AppRouter.router,
       ),
     );

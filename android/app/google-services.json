@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "653391736394",
+    "project_id": "synctasks-1e850",
+    "storage_bucket": "synctasks-1e850.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653391736394:android:b0928826e0287d44da00b3",
+        "android_client_info": {
+          "package_name": "com.todo.synctasks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653391736394-htod3ltrj9t6pnlmsa97fr64rtilpeb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.todo.synctasks",
+            "certificate_hash": "36eb7fea621da8753450f0f493ab4fc2b7ebe757"
+          }
+        },
+        {
+          "client_id": "653391736394-02sosgriidt1uai4761oq0abki088go0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvwee3HHylCG15Kg_LMjiJHGiGormpBCw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653391736394-02sosgriidt1uai4761oq0abki088go0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "653391736394-l8dq4afp9643elp2ebekgdfjl9bg3gcg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.todo.synctasks"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

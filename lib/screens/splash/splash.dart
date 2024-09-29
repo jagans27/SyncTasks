@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sync_tasks/providers/splash_notifier/splash_notifier.dart';
 import 'package:sync_tasks/routes/pages.dart';
-import 'package:sync_tasks/screens/splash/splash_vm.dart';
 import 'package:sync_tasks/util/color_util.dart';
 import 'package:sync_tasks/util/fonts.dart';
 import 'package:sync_tasks/util/images.dart';
@@ -17,20 +18,25 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  final SplashVM _splashVM = SplashVM();
+  late SplashNotifier _splashNotifier;
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        bool? navigateToAuthentication = await _splashVM.navigateUser();
+        bool isUserSignedIn = await _splashNotifier.getUserLoginStatus();
 
-        if (mounted && navigateToAuthentication != null) {
-          if (navigateToAuthentication) {
-            context.pushReplacement(Pages.authenticationScreen);
-          } else {
-            context.pushReplacement(Pages.rootScreen);
+        if (isUserSignedIn) {
+          bool navigateToAuthentication = await _splashNotifier.navigateUser();
+          if (mounted) {
+            if (navigateToAuthentication) {
+              context.pushReplacement(Pages.authenticationScreen);
+            } else {
+              context.pushReplacement(Pages.rootScreen);
+            }
           }
+        } else if (mounted) {
+          context.pushReplacement(Pages.login);
         }
       },
     );
@@ -38,6 +44,8 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    _splashNotifier = Provider.of<SplashNotifier>(context);
+
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: ColorUtil.darkGray,

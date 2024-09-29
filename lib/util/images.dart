@@ -20,7 +20,11 @@ class Images {
   static String infoIcon = "assets/images/infoIcon.png";
   static String tickIcon = "assets/images/tickIcon.png";
   static String lockIcon = "assets/images/lockIcon.png";
+  static String loginIcon = "assets/images/loginIcon.png";
+  static String googleIcon = "assets/images/googleIcon.png";
+  static String emptyProfile = "assets/images/emptyProfile.png";
+  static String noInternetIcon = "assets/images/noInternetIcon.png";
 
-  static String sampleProfile = "assets/images/sampleProfile.jpg";
-  static String sampleMeeting = "assets/images/sampleMeeting.jpg";
+  static String taskLottie = "assets/lottie/taskLottie.json";
+  static String loadingLottie = "assets/lottie/loadingLottie.json";
 }

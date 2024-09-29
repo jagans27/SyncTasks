@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:sync_tasks/providers/authentication_notifier/authentication_notifier.dart';
 import 'package:sync_tasks/routes/pages.dart';
-import 'package:sync_tasks/screens/authentication/authentication_vm.dart';
 import 'package:sync_tasks/util/color_util.dart';
 import 'package:sync_tasks/util/fonts.dart';
 import 'package:sync_tasks/util/images.dart';
@@ -17,7 +18,7 @@ class Authentication extends StatefulWidget {
 }
 
 class _AuthenticationState extends State<Authentication> {
-  final AuthenticationVM _authenticationVM = AuthenticationVM();
+  late AuthenticationNotifier _authenticationNotifier;
   @override
   void initState() {
     super.initState();
@@ -29,6 +30,8 @@ class _AuthenticationState extends State<Authentication> {
 
   @override
   Widget build(BuildContext context) {
+    _authenticationNotifier = Provider.of<AuthenticationNotifier>(context);
+
     return AnnotatedRegion(
       value: SystemUiOverlayStyle(
           statusBarColor: ColorUtil.darkGray,
@@ -70,7 +73,7 @@ class _AuthenticationState extends State<Authentication> {
   }
 
   Future<void> _checkAuthentication() async {
-    bool isAuthenticated = await _authenticationVM.authenticate();
+    bool isAuthenticated = await _authenticationNotifier.authenticate();
 
     if (isAuthenticated && mounted) {
       context.pushReplacement(Pages.rootScreen);
