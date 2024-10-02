@@ -50,7 +50,7 @@ Future<void> imagePopup(BuildContext context, {required TaskItem task}) async {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: MemoryImage(
-                                        base64Decode(task.image),
+                                        base64Decode(task.image!),
                                       ),fit: BoxFit.cover),
                                       borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(10.r),

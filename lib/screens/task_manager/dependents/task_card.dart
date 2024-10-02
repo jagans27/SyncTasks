@@ -33,7 +33,7 @@ class TaskCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (task.image.isEmpty)
+              if (task.image==null)
                 Padding(
                   padding: EdgeInsets.only(left: 49.w, top: 28.h),
                   child: Text(
@@ -48,7 +48,7 @@ class TaskCard extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (task.image.isNotEmpty)
+              if (task.image!=null)
                 GestureDetector(
                   onTap: () {
                     onTapImage();
@@ -61,7 +61,7 @@ class TaskCard extends StatelessWidget {
                         CircleAvatar(
                           radius: 25.r,
                           backgroundImage:
-                              MemoryImage(base64Decode(task.image)),
+                              MemoryImage(base64Decode(task.image!)),
                         ),
                         Positioned(
                           bottom: 0,

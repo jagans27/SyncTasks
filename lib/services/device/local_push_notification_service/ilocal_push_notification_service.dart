@@ -4,9 +4,10 @@ abstract class ILocalPushNotificationService {
       {required int id,
       required String title,
       required String description,
-      required DateTime time});
+      required DateTime time,
+      required String? image});
   Future<void> showNotification(
-      {required String title, required String description});
+      {required String title, required String description, String? image});
   Future<void> deleteNotification({required int id});
   Future<void> deleteAllNotification();
   Future<void> showPendingNotification();

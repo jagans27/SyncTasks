@@ -19,7 +19,7 @@ class TaskNotifier extends ChangeNotifier {
       color: TaskColor.bubblegumBlush.name,
       fromTime: "",
       toTime: "",
-      image: "",
+      image: null,
       completed: false);
   String titleError = "";
   String descriptionError = "";
@@ -238,7 +238,8 @@ class TaskNotifier extends ChangeNotifier {
             id: task.id,
             title: task.title,
             description: task.description,
-            time: Util.parseTimeOfDayFormatedToDateTime(task.fromTime));
+            time: Util.parseTimeOfDayFormatedToDateTime(task.fromTime),
+            image: task.image);
       }
     } catch (ex) {
       ex.logError();
@@ -269,7 +270,8 @@ class TaskNotifier extends ChangeNotifier {
                   title: taskBO.tasks[i].title,
                   description: taskBO.tasks[i].description,
                   time: Util.parseTimeOfDayFormatedToDateTime(
-                      taskBO.tasks[i].fromTime));
+                      taskBO.tasks[i].fromTime),
+                  image: taskBO.tasks[i].image);
             }
             break;
           }
@@ -336,19 +338,19 @@ class TaskNotifier extends ChangeNotifier {
     }
   }
 
-  Future<String> convertImageFileToBase64(File imageFile) async {
+  Future<String?> convertImageFileToBase64(File imageFile) async {
     try {
       final bytes = await imageFile.readAsBytes();
       return base64Encode(bytes);
     } catch (ex) {
       ex.logError();
-      return "";
+      return null;
     }
   }
 
   void deleteImage() {
     try {
-      task.image = "";
+      task.image = null;
       notifyListeners();
     } catch (ex) {
       ex.logError();
@@ -396,7 +398,8 @@ class TaskNotifier extends ChangeNotifier {
                   title: taskBO.tasks[i].title,
                   description: taskBO.tasks[i].description,
                   time: Util.parseTimeOfDayFormatedToDateTime(
-                      taskBO.tasks[i].fromTime));
+                      taskBO.tasks[i].fromTime),
+                  image: taskBO.tasks[i].image);
             }
 
             break;
@@ -420,29 +423,12 @@ class TaskNotifier extends ChangeNotifier {
           color: TaskColor.bubblegumBlush.name,
           fromTime: "",
           toTime: "",
-          image: "",
+          image: null,
           completed: false);
       titleError = "";
       descriptionError = "";
       fromTimeError = "";
       toTimeError = "";
-    } catch (ex) {
-      ex.logError();
-    }
-  }
-
-  void showPendingNotification() {
-    try {
-      localPushNotificationService.showPendingNotification();
-    } catch (ex) {
-      ex.logError();
-    }
-  }
-
-  void showNotification() {
-    try {
-      localPushNotificationService.showNotification(
-          title: "Hello", description: "Nothing is weared");
     } catch (ex) {
       ex.logError();
     }

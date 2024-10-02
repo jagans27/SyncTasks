@@ -23,7 +23,7 @@ class TaskItemAdapter extends TypeAdapter<TaskItem> {
       color: fields[3] as String,
       fromTime: fields[4] as String,
       toTime: fields[5] as String,
-      image: fields[6] as String,
+      image: fields[6] as String?,
       completed: fields[7] as bool,
     );
   }

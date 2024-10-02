@@ -17,7 +17,7 @@ class TaskItem {
   @HiveField(5)
   String toTime;
   @HiveField(6)
-  String image;
+  String? image;
   @HiveField(7)
   bool completed;
 

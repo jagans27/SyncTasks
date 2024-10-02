@@ -99,24 +99,26 @@ class _AddTaskState extends State<AddTask> {
       return PopScope(
         canPop: false,
         onPopInvokedWithResult: (didPop, result) async {
-          if ((provider.task.title.isEmpty &&
-              provider.task.description.isEmpty &&
-              provider.task.fromTime.isEmpty &&
-              provider.task.toTime.isEmpty &&
-              provider.task.image.isEmpty)) {
-            context.pop();
-          } else {
-            await confirmationPopup(context,
-                buttonTexts: ["Discard", "Keep editing"],
-                buttonActions: [
-                  () {
-                    context.go(Pages.rootScreen);
-                  },
-                  () {
-                    context.pop();
-                  }
-                ],
-                actionText: "Discard changes");
+          if (didPop == false) {
+            if ((provider.task.title.isEmpty &&
+                provider.task.description.isEmpty &&
+                provider.task.fromTime.isEmpty &&
+                provider.task.toTime.isEmpty &&
+                provider.task.image == null)) {
+              context.pop();
+            } else {
+              await confirmationPopup(context,
+                  buttonTexts: ["Discard", "Keep editing"],
+                  buttonActions: [
+                    () {
+                      context.go(Pages.rootScreen);
+                    },
+                    () {
+                      context.pop();
+                    }
+                  ],
+                  actionText: "Discard changes");
+            }
           }
         },
         child: AnnotatedRegion(
@@ -481,13 +483,13 @@ class _AddTaskState extends State<AddTask> {
                         Padding(
                           padding: EdgeInsets.only(bottom: 12.h, top: 21.h),
                           child: Text(
-                            provider.task.image.isEmpty
+                            provider.task.image == null
                                 ? "Choose Image"
                                 : "Selected Image",
                             style: StyleUtil.label,
                           ),
                         ),
-                        if (provider.task.image.isEmpty)
+                        if (provider.task.image == null)
                           GestureDetector(
                             onTap: () {
                               editBottomSheet(context: context, buttonNames: [
@@ -536,7 +538,7 @@ class _AddTaskState extends State<AddTask> {
                                   ],
                                 )),
                           ),
-                        if (provider.task.image.isNotEmpty)
+                        if (provider.task.image != null)
                           Center(
                             child: Container(
                               height: 150.h,
@@ -544,7 +546,7 @@ class _AddTaskState extends State<AddTask> {
                               decoration: BoxDecoration(
                                 image: DecorationImage(
                                     image: MemoryImage(
-                                        base64Decode(provider.task.image)),
+                                        base64Decode(provider.task.image!)),
                                     fit: BoxFit.cover),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(12.r)),
@@ -583,8 +585,8 @@ class _AddTaskState extends State<AddTask> {
                     await provider.updateTask();
                   }
                   if (mounted &&
-                      (provider.titleError.isEmpty &&
-                          provider.descriptionError.isEmpty &&
+                      (provider.titleError.isEmpty &
+                              provider.descriptionError.isEmpty &&
                           provider.fromTimeError.isEmpty &&
                           provider.toTimeError.isEmpty)) {
                     // ignore: use_build_context_synchronously
